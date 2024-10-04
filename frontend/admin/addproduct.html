@@ -400,17 +400,23 @@
             const price = document.getElementById('price').value
             const description = document.getElementById('description').value
             try {
+              if(checkvalidate(name,image,price)){
                 await fetch('http://localhost:3000/products',{
                 method:'POST',
                 headers: {'Content-Type':'application/json'},
                 body:JSON.stringify({name,image,price,description})
                 }) 
                 alert('Thêm mới thành công')
+              }
+              else throw new Error('nhap thieu thong tin')
             } catch (error) {
-              alert('Thêm thất bại')
-            } 
+              alert(error)
+            }
         })
+        const checkvalidate = (name, img, price) => {
+          //su dung bieu thuc AND && cua short circuit
+          return name.trim().length > 0&& img.trim().length > 0 &&!isNaN(price) &&price > 0
+        }
   </script>
 </body>
-
 </html>
